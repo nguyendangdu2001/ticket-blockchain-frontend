@@ -5,13 +5,7 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 }
 const IconButton = ({ icon, className, children, ...rest }: Props) => {
   return (
-    <button
-      className={classNames(
-        "flex items-center justify-center p-3 rounded-full hover:opacity-80 transition-opacity space-x-2 text-base font-semibold",
-        className
-      )}
-      {...rest}
-    >
+    <button className={classNames("icon-button", className)} {...rest}>
       {icon}
       {children && <span>{children}</span>}
     </button>

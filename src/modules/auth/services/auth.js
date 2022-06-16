@@ -1,4 +1,5 @@
 // import AUTH_API from "@config/axios/auth";
+import { web3 } from "@config/web3";
 import axios from "axios";
 export const login = (requestData) => {
   console.log(requestData);
@@ -24,4 +25,16 @@ export const getProfile = () => {
 export const logout = (requestData) => {
   console.log(requestData);
   return axios.post("/auth/logout", requestData);
+};
+export const refeshToken = async (publicAddress) => {
+  const { data: nonce } = await axios.get(`/auth/nonce/${publicAddress}`);
+  const signature = await web3.eth.personal.sign(
+    `I am signing my one-time nonce: ${nonce?.nonce}`,
+    publicAddress
+  );
+  const { data: jwt } = await axios.post(`/auth/refresh-token`, {
+    publicAddress,
+    signature,
+  });
+  return jwt;
 };

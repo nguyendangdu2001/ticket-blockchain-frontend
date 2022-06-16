@@ -30,7 +30,7 @@ const CustomModal = ({ isOpen, close, children, title, size = "md" }) => {
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            leaveTo="!opacity-0"
           >
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           </Transition.Child>

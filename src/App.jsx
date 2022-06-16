@@ -6,17 +6,29 @@ import Header from "@components/Header";
 import { ScrollToTop } from "@components/ScrollToTop";
 import GetRoutes from "@routes/GetRoutes";
 import { LazyMotion } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastContainer } from "react-toastify";
 
-import axios from "axios";
 import { useAppSelector } from "@hooks/reduxHook";
+import useAccount from "@modules/auth/hooks/useAccount";
 
 const loadFeatures = () =>
   import("./config/framer-motion").then((res) => res.default);
 function App() {
-  axios.get("");
+  const { checkIfWalletIsConnect } = useAccount();
+  useEffect(() => {
+    checkIfWalletIsConnect();
+
+    return () => {};
+  }, [checkIfWalletIsConnect]);
+  useEffect(() => {
+    window.ethereum.on("accountsChanged", checkIfWalletIsConnect);
+
+    return () => {
+      // window.ethereum.off("accountsChanged", accountChangedHandler);
+    };
+  }, [checkIfWalletIsConnect]);
   const darkMode = useAppSelector((state) => state.dark.isDark);
   return (
     <div className={`${darkMode ? "dark" : ""} h-full`}>

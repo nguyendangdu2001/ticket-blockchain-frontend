@@ -1,6 +1,7 @@
-import { logout } from "@modules/auth/slices";
+import { logout, updateToken } from "@modules/auth/slices";
 import axios from "axios";
 import { store } from "@app/store";
+import { refeshToken } from "@modules/auth/services/auth";
 let BASE_URL = "http://localhost:5000/";
 let BASE_URL_EMBED = "http://localhost:8000/";
 let BASE_URL_WS = "http://localhost:5000/";
@@ -50,13 +51,12 @@ export const configAxios = () => {
         if (error.response.status === 401) {
           //@ts-ignore
           try {
-            store.dispatch(logout());
-            // const { data } = await refresh_token();
-            // const userInfo = JSON.parse(Cookies.get("userInfo"));
-            // const access_token = data?.access_token;
-            // store.dispatch(updateToken({ access_token }));
-            // originalConfig.headers["Authorization"] = `Bearer ${access_token}`;
-            // return axios(originalConfig);
+            const publicAddress = store.getState().auth.account;
+            if (!publicAddress) return Promise.reject(error);
+            const jwt = await refeshToken(publicAddress);
+            store.dispatch(updateToken(jwt));
+            originalConfig.headers["Authorization"] = `Bearer ${jwt}`;
+            return axios(originalConfig);
           } catch (_error) {
             return Promise.reject(_error);
           }
