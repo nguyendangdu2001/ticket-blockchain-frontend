@@ -93,6 +93,18 @@ const Header = () => {
                     >
                       My Ticket
                     </Link>
+                    <Link
+                      to="/market"
+                      className="flex items-center p-2 text-base font-bold h-14"
+                    >
+                      Marketplace
+                    </Link>
+                    <Link
+                      to="/my-market"
+                      className="flex items-center p-2 text-base font-bold h-14"
+                    >
+                      My marketplace
+                    </Link>
                   </div>
                 }
               />

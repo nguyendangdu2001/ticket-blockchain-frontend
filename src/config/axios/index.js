@@ -2,9 +2,9 @@ import { logout, updateToken } from "@modules/auth/slices";
 import axios from "axios";
 import { store } from "@app/store";
 import { refeshToken } from "@modules/auth/services/auth";
-let BASE_URL = "http://localhost:5000/";
+let BASE_URL = "http://localhost:5001/";
 let BASE_URL_EMBED = "http://localhost:8000/";
-let BASE_URL_WS = "http://localhost:5000/";
+let BASE_URL_WS = "http://localhost:5001/";
 let BASE_URL_JS_EMBED = "http://localhost:5000/";
 let API_IMGBB_KEY = "ef456e4869f97e66128f272ec46b4d34";
 if (import.meta.NODE_ENV === "production") {

@@ -38,7 +38,7 @@ export const configReactQuery = ({ store = {} }) => {
       retry: false,
 
       onSuccess: (data) => {
-        toast.success(data?.message || "Thành công");
+        toast.success(data?.message || "Successfull");
       },
       onError: (e) => {
         toast.error(

@@ -1,5 +1,6 @@
 import { ticketContract } from "@config/web3";
 import { useAppSelector } from "@hooks/reduxHook";
+import { blockCheck } from "@modules/market/services";
 import { createTicketType } from "@modules/ticket-type/services";
 import React from "react";
 import { useMutation } from "react-query";
@@ -19,7 +20,7 @@ const useCreateTicketType = (eventId, eventOnchainId) => {
       mutationData?.slot,
       account
     );
-    const rs = await ticketContract.methods
+    const tx = await ticketContract.methods
       .createTicketType(
         Number(eventOnchainId),
         data?._id,
@@ -29,7 +30,11 @@ const useCreateTicketType = (eventId, eventOnchainId) => {
         mutationData?.slot
       )
       .send({ from: account });
-    console.log(rs);
+    console.log(tx);
+    await blockCheck({
+      blockNumber: tx?.events?.TicketTypeCreated?.blockNumber,
+      eventName: "TicketTypeCreated",
+    });
     return data;
   });
 };

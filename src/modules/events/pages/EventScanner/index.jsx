@@ -26,7 +26,8 @@ const EventScanner = () => {
       <QrReader
         onResult={(result, error) => {
           if (isLoading) return;
-          scan(result);
+          const data = JSON.parse(result);
+          scan(data);
         }}
         style={{ width: "100%" }}
       />

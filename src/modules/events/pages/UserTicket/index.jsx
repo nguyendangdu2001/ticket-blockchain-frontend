@@ -1,3 +1,4 @@
+import useResaleTicket from "@modules/market/hooks/mutate/useResaleTicket";
 import useGetTicket from "@modules/ticket/hooks/query/useGetTicket";
 import React from "react";
 import TicketItem from "./TicketItem";
